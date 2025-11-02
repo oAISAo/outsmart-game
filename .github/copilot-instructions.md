@@ -1,0 +1,16 @@
+# Outsmart Game AI Guide
+- **Stack**: Angular 20 standalone + Ionic 8 + Capacitor 7 (verify in `package.json`). Target Node 24 LTS via `nvm use 24` before installing so native builds stay reproducible.
+- **Environment**: Non-interactive shells (like this AI agent) need `export NVM_DIR="$HOME/.nvm" && source "$NVM_DIR/nvm.sh" && nvm use 24` before any npm command.
+- **Bootstrap**: `src/main.ts` bootstraps the standalone `App` with `appConfig`; extend providers there (e.g., Ionic, animations) instead of re-registering in components.
+- **Routing**: keep all routes in `src/app/app.routes.ts`; new views belong in `src/app/pages/**` as lazy-loaded standalone components.
+- **Directory Roles**: `core` = singleton services/data, `pages` = routed features, `shared` = UI primitives. Avoid stateful logic inside pages; surface signals/services from `core`.
+- **Scenario Catalog**: narrative metadata lives in `ScenarioCatalogService` (`src/app/core/services/...`) backed by `CORE_SCENARIOS`. Add new missions by extending that data file and exposing helpers in the service.
+- **Signals First**: services expose Angular signals/computed state. When RxJS is required, convert to signals (`toSignal`) and opt into `takeUntilDestroyed` for side-effects.
+- **Ionic Shell**: `src/app/app.html` already wraps the app in `<ion-app><ion-router-outlet>`. New pages must use Ionic building blocks (`ion-header`, `ion-content`, `ion-card`, etc.) for consistent styling and gestures.
+- **Styling**: component-level SCSS co-located with each page; global Ionic tokens live in `src/styles.scss`. Keep custom palettes within CSS variables and respect the 100 character line limit.
+- **Capacitor Usage**: check `capacitor.config.ts` for `appId`; gate native APIs behind `Capacitor.isNativePlatform()` and provide web fallbacks before shipping.
+- **Testing**: add `.spec.ts` files with Jasmine for every service and page. Prefer shallow component tests that assert template wiring and signal behaviour.
+- **Tooling**: run `npm run lint` (`@angular-eslint`) and `npm test` before opening PRs. Use `npm run format` to enforce Prettier (`printWidth: 100`, `singleQuote: true`).
+- **Dev Workflow**: `npm start` for the web client, `npm run sync` then `npm run ios|android` for native shells. Extend `/scripts` for complex build chains instead of adding new npm scripts.
+- **Version Control**: follow `WAY_OF_WORKING.md` (`feature/*` branches, scoped commits). Document feature-level decisions in `README.md` or a changelog entry.
+- **AI Collaboration**: annotate new feature intent with comments before generating logic, and consult `GPT_COPILOT_INSTRUCTIONS.md` for Ionic/Capacitor/RxJS nuances.

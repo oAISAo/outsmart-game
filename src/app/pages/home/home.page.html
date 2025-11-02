@@ -1,0 +1,85 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-title>Outsmart Missions</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="home-content">
+  <section class="hero">
+    <h1>Co-operative narrative escape adventures</h1>
+    <p>
+      Pick a scenario, sync your crew on a call, and reach the objective before the timer runs out.
+      Every choice reshapes the story.
+    </p>
+    <div class="hero__actions">
+      <ion-button color="primary" (click)="onRandomScenario()" data-testid="random-scenario">
+        <ion-icon slot="start" name="sparkles-outline"></ion-icon>
+        Surprise scenario
+      </ion-button>
+      <ion-badge color="medium">
+        {{ scenarioCount() }} curated missions
+      </ion-badge>
+      <ion-badge color="tertiary">
+        Target session {{ targetDuration() }} min
+      </ion-badge>
+    </div>
+  </section>
+
+  <section class="scenarios" aria-label="Available scenarios">
+    <ion-list inset="true">
+      @for (scenario of scenarios(); track scenario.id) {
+        <ion-item
+          button
+          detail="false"
+          (click)="onSelectScenario(scenario.id)"
+          [class.scenarios__item--active]="selectedScenario()?.id === scenario.id"
+          data-testid="scenario-item"
+        >
+          <ion-label>
+            <h2>{{ scenario.title }}</h2>
+            <p>{{ scenario.summary }}</p>
+            <div class="scenarios__meta">
+              <ion-badge color="primary">
+                {{ scenario.defaultDurationMinutes }} min
+              </ion-badge>
+              <ion-badge color="secondary">
+                {{ scenario.recommendedPlayers.min }}-{{ scenario.recommendedPlayers.max }} players
+              </ion-badge>
+            </div>
+          </ion-label>
+        </ion-item>
+      }
+    </ion-list>
+  </section>
+
+  @if (selectedScenario(); as current) {
+    <section class="scenario-detail" aria-live="polite">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ current.title }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p class="scenario-detail__description">{{ current.longDescription }}</p>
+          <div class="scenario-detail__grid">
+            <div>
+              <h3>Starting inventory</h3>
+              <ul>
+                @for (item of current.startingInventory; track item) {
+                  <li>{{ item }}</li>
+                }
+              </ul>
+            </div>
+            <div>
+              <h3>Key mechanics</h3>
+              <ul>
+                @for (mechanic of current.keyMechanics; track mechanic) {
+                  <li>{{ mechanic }}</li>
+                }
+              </ul>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </section>
+  }
+</ion-content>

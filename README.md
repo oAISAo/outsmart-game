@@ -1,59 +1,77 @@
-# OutsmartGame
+# Outsmart Game
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.8.
+> A cooperative narrative escape experience for web and mobile, built with Angular 20, Ionic 8, and Capacitor 7.
 
-## Development server
+## Concept
 
-To start a local development server, run:
+Players join a shared session (locally or remotely) and must coordinate decisions, share items, and adapt to injuries or detours to beat the clock. Scenarios are highly branching and seasonal — for example:
 
-```bash
-ng serve
-```
+- **Midnight Breakdown**: repair a car or trek through the woods before hypothermia hits.
+- **Holiday Homebound**: navigate a snowed-in city while uncovering the perfect family gift.
+- **Orbital Rescue**: stabilise a space station after a supply shuttle collision.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Each mission seeds player inventories, injuries, and environmental hazards differently, leading to unique playthroughs without heavy graphics.
 
-## Code scaffolding
+## Tech Stack
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **Framework**: Angular 20 (standalone APIs, signals-first)
+- **UI**: Ionic 8 components with SCSS theming
+- **Native bridge**: Capacitor 7 (web + iOS + Android)
+- **Tooling**: `@angular-eslint`, Prettier, Jasmine/Karma
 
-```bash
-ng generate component component-name
-```
+## Getting Started
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1. **Install prerequisites**
+	```bash
+	nvm install 22
+	nvm use 22
+	npm install -g @ionic/cli@8 @angular/cli@20
+	```
+2. **Install dependencies**
+	```bash
+	npm install
+	```
+3. **Run the dev server**
+	```bash
+	npm start
+	```
+	Navigate to http://localhost:4200. The browser reloads on code changes.
 
-```bash
-ng generate --help
-```
+## NPM Scripts
 
-## Building
+| Command | Description |
+| --- | --- |
+| `npm start` | Angular dev server with Ionic live reload. |
+| `npm run build` | Production build to `dist/outsmart-game`. |
+| `npm run lint` | ESLint via `@angular-eslint`. |
+| `npm run test` | Jasmine/Karma unit tests in watch mode. |
+| `npm run format` | Prettier on `src/**/*.{ts,html,scss}`. |
+| `npm run sync` | `npx cap sync` for native platform projects. |
+| `npm run ios` / `npm run android` | Open native projects in Xcode / Android Studio. |
 
-To build the project run:
+## Architecture Overview
 
-```bash
-ng build
-```
+- **App shell**: `src/app/app.ts` renders `<ion-app>` with `IonRouterOutlet`; Ionic providers are configured in `src/app/app.config.ts`.
+- **Routing**: Defined centrally in `src/app/app.routes.ts`. Each route lazily loads a standalone page component.
+- **Scenario catalog**: `ScenarioCatalogService` (`src/app/core/services`) exposes signals for mission lists and current selection, backed by `CORE_SCENARIOS` data.
+- **Home page**: `src/app/pages/home` showcases scenarios, mission metadata, and narrative details using Ionic cards and badges.
+- **Styling**: Ionic base styles are imported in `src/styles.scss`. Component-specific SCSS lives beside each component to keep styles scoped.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Testing & Quality
 
-## Running unit tests
+- **Unit tests**: `npm test` executes Jasmine/Karma specs. New services/pages should ship with matching `.spec.ts` files.
+- **Linting**: `npm run lint` enforces Angular and TypeScript best practices.
+- **Formatting**: `npm run format` applies the Prettier ruleset (100 character width, single quotes).
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Native Builds
 
-```bash
-ng test
-```
+After a successful `npm run build`, run `npm run sync` to copy web assets into the Capacitor platforms and open projects with `npm run ios` or `npm run android`. Extend the scripts under `/scripts` for automated CI/CD flows.
 
-## Running end-to-end tests
+## Roadmap Highlights
 
-For end-to-end (e2e) testing, run:
+- Shared session orchestration and WebRTC voice hints.
+- Scenario authoring toolkit with branching editor.
+- Offline-ready persistence and reconnection logic.
+- Seasonal scenario packs (e.g., spooky escape anthology, summer road-trip edition).
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Have ideas or feedback? Open an issue or start a discussion in the repo! 🎲

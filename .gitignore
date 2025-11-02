@@ -6,11 +6,21 @@
 /out-tsc
 /bazel-out
 
-# Node
+# Node tooling
 /node_modules
-npm-debug.log
-yarn-error.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
+# Environment files
+.env
+.env.*
+.env.local
+
+# Lint & formatter caches
+/.eslintcache
+.prettier-cache
 # IDEs and editors
 .idea/
 .project
@@ -28,7 +38,7 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
-# Miscellaneous
+# Angular & build artefacts
 /.angular/cache
 .sass-cache/
 /connect.lock
@@ -37,6 +47,14 @@ yarn-error.log
 testem.log
 /typings
 __screenshots__/
+
+# Capacitor / Ionic
+/ios/App/App.xcworkspace/xcuserdata/
+/ios/App/build/
+/android/app/build/
+/android/.gradle/
+/android/.idea/
+/android/local.properties
 
 # System files
 .DS_Store
