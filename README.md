@@ -23,8 +23,8 @@ Each mission seeds player inventories, injuries, and environmental hazards diffe
 
 1. **Install prerequisites**
 	```bash
-	nvm install 22
-	nvm use 22
+	nvm install 24
+	nvm use 24
 	npm install -g @ionic/cli@8 @angular/cli@20
 	```
 2. **Install dependencies**
