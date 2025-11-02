@@ -64,7 +64,7 @@
             <div>
               <h3>Starting inventory</h3>
               <ul>
-                @for (item of current.startingInventory; track item) {
+                @for (item of current.startingInventory; track $index) {
                   <li>{{ item }}</li>
                 }
               </ul>
@@ -72,7 +72,7 @@
             <div>
               <h3>Key mechanics</h3>
               <ul>
-                @for (mechanic of current.keyMechanics; track mechanic) {
+                @for (mechanic of current.keyMechanics; track $index) {
                   <li>{{ mechanic }}</li>
                 }
               </ul>
