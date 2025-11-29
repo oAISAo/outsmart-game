@@ -31,17 +31,22 @@ describe('ScenarioCatalogService', () => {
     expect(service.selectedScenario()).not.toBeNull();
   });
 
+  it('returns scenarios by id', () => {
+    const first = service.scenarios()[0];
+    expect(service.getScenarioById(first.id)).toEqual(first);
+    expect(service.getScenarioById('missing-id')).toBeUndefined();
+  });
+
   it('upserts scenarios and keeps them sorted', () => {
     service.upsertScenario({
       id: 'zzz-custom',
       title: 'Zeta Test',
       summary: 'Temporary scenario for validation.',
-      longDescription: 'Used to ensure the service keeps scenarios ordered by title.',
+      longDescription: ['Used to ensure the service keeps scenarios ordered by title.'],
       defaultDurationMinutes: 15,
-      recommendedPlayers: { min: 2, max: 4 },
+      numberOfPlayers: 4,
       seasonalTags: [],
-      startingInventory: [],
-      keyMechanics: []
+      roles: []
     });
 
     const lastScenario = [...service.scenarios()].pop();

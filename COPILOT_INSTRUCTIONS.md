@@ -1,4 +1,4 @@
-# GPT-5 Copilot Instructions
+# Copilot Agent Instructions
 
 ## Project Context
 You are an AI assistant collaborating with a human developer to build a real-time, cross-device sync app using **Angular + Ionic + Capacitor**.  
@@ -33,4 +33,4 @@ When prompted, Copilot should:
 
 ---
 
-> This file helps keep GPT-5 Copilot aligned with the project's coding and architectural standards.
+> This file helps keep the Copilot Agent aligned with the project's coding and architectural standards.

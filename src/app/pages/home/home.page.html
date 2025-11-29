@@ -7,6 +7,24 @@
 <ion-content [fullscreen]="true" class="home-content">
   <section class="hero">
     <h1>Co-operative narrative escape adventures</h1>
+
+    <!-- Join Game Section -->
+    <div class="join-game-card">
+      <ion-item lines="none" class="join-input">
+        <ion-input
+          placeholder="Enter 4-letter code"
+          [ngModel]="joinCode()"
+          (ngModelChange)="joinCode.set($event)"
+          maxlength="4"
+          class="code-input"
+        ></ion-input>
+        <ion-button slot="end" (click)="onJoinGame()" [disabled]="!joinCode() || isJoining()">
+          <span *ngIf="!isJoining()">Join</span>
+          <ion-spinner *ngIf="isJoining()"></ion-spinner>
+        </ion-button>
+      </ion-item>
+    </div>
+
     <p>
       Pick a scenario, sync your crew on a call, and reach the objective before the timer runs out.
       Every choice reshapes the story.
@@ -43,7 +61,7 @@
                 {{ scenario.defaultDurationMinutes }} min
               </ion-badge>
               <ion-badge color="secondary">
-                {{ scenario.recommendedPlayers.min }}-{{ scenario.recommendedPlayers.max }} players
+                {{ scenario.numberOfPlayers }} players
               </ion-badge>
             </div>
           </ion-label>
@@ -51,35 +69,4 @@
       }
     </ion-list>
   </section>
-
-  @if (selectedScenario(); as current) {
-    <section class="scenario-detail" aria-live="polite">
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>{{ current.title }}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <p class="scenario-detail__description">{{ current.longDescription }}</p>
-          <div class="scenario-detail__grid">
-            <div>
-              <h3>Starting inventory</h3>
-              <ul>
-                @for (item of current.startingInventory; track $index) {
-                  <li>{{ item }}</li>
-                }
-              </ul>
-            </div>
-            <div>
-              <h3>Key mechanics</h3>
-              <ul>
-                @for (mechanic of current.keyMechanics; track $index) {
-                  <li>{{ mechanic }}</li>
-                }
-              </ul>
-            </div>
-          </div>
-        </ion-card-content>
-      </ion-card>
-    </section>
-  }
 </ion-content>

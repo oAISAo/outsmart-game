@@ -2,78 +2,46 @@ import { Scenario } from '../models/game-scenario.model';
 
 export const CORE_SCENARIOS: readonly Scenario[] = [
   {
-    id: 'midnight-breakdown',
-    title: 'Midnight Breakdown',
+    id: 'missing-cat',
+    title: 'The Case of the Missing Cat',
     summary:
-      'Your crew is stranded in the dark after a highway failure. Decide whether to repair the car or trek through the woods before the storm hits.',
-    longDescription:
-      'Fuel is low, cell coverage is spotty, and the highway patrol will not arrive for another hour. Players must split up to scout for resources, triage injuries, and coordinate a repair-or-rescue strategy before the cold sets in.',
-    defaultDurationMinutes: 30,
-    recommendedPlayers: {
-      min: 3,
-      max: 5
-    },
-    seasonalTags: ['survival', 'night'],
-    startingInventory: [
-      'Damaged multitool',
-      'Half-charged flashlight',
-      'Thermal blanket with a tear',
-      'Mystery box from the trunk'
+      'A missing cat. Four friends. Zero time. Can you find Muffin before the storm hits?',
+    longDescription: [
+      'Emma and Alex are hosting their friends Jake and Mia for a chill evening… until they realize their indoor cat, Muffin, has vanished. The balcony door is wide open, the neighbor is grilling fish again, and Muffin’s toy mouse lies abandoned on the floor.',
+      'The storm is rolling in fast. Search quickly, communicate constantly, and don’t overlook anything—cats are experts at being hidden right under your nose.',
     ],
-    keyMechanics: [
-      'Location scouting and timed rendezvous',
-      'Injury management and carry penalties',
-      'Shared inventory with long-distance trading'
-    ]
-  },
-  {
-    id: 'holiday-homebound',
-    title: 'Holiday Homebound',
-    summary:
-      'Make it to the family gathering with the perfect gift before the snowstorm closes the last rail line.',
-    longDescription:
-      'Players navigate a festive city maze, uncovering clues about loved ones while juggling travel disruptions. Budget management, public transit gambles, and last-minute favors determine whether grandma gets her dream present in time.',
-    defaultDurationMinutes: 25,
-    recommendedPlayers: {
-      min: 2,
-      max: 6
-    },
-    seasonalTags: ['holiday', 'urban'],
-    startingInventory: [
-      'Transit pass with limited rides',
-      'Crinkled wishlist fragment',
-      'Local bakery voucher',
-      'Run-down electric scooter key'
-    ],
-    keyMechanics: [
-      'Time-splitting between errands and intel gathering',
-      'Trust-based clue sharing',
-      'Dynamic weather complications that alter routes'
-    ]
-  },
-  {
-    id: 'orbital-rescue',
-    title: 'Orbital Rescue',
-    summary:
-      'A supply shuttle collision destabilizes the station. Patch the hull, reroute power, and escort civilians to escape pods before the orbit decays.',
-    longDescription:
-      'Zero-G hazards force the team to coordinate tether usage, manage depressurised zones, and reprogram maintenance drones. Every minute counts as the orbital decay meter rises, threatening a catastrophic re-entry.',
-    defaultDurationMinutes: 35,
-    recommendedPlayers: {
-      min: 4,
-      max: 6
-    },
-    seasonalTags: ['sci-fi', 'high-stakes'],
-    startingInventory: [
-      'Malfunction-prone EVA rig',
-      'Emergency patch foam',
-      'Broken navigation tablet',
-      'Prototype drone firmware chip'
-    ],
-    keyMechanics: [
-      'Shared oxygen economy and tether negotiation',
-      'Environmental puzzles with modular station sections',
-      'Coop skill checks with consequence stacking'
-    ]
+    defaultDurationMinutes: 20,
+    numberOfPlayers: 4,
+    seasonalTags: ['mystery', 'family'],
+    roles: [{
+      id: 'emma',
+      name: 'Emma',
+      emoji: '🌿',
+      shortDescription: 'The Plant Whisperer',
+      description: 'Plants love her. She talks to them. They don’t talk back… usually. If something outdoors has been nudged, pawed, or knocked over, Emma sees it first.',
+      startingInventory: [{name: 'Watering Can', description: 'surprisingly handy in emergencies.'}]
+    },{
+      id: 'alex',
+      name: 'Alex',
+      emoji: '🧰',
+      shortDescription: 'The Tool Guy',
+      description: 'Handy, practical, and strangely excited about screws. If it locks, jams, rattles, or clicks, Alex is already halfway to fixing it.',
+      startingInventory: [{name: 'Multi-Tool', description: 'tiny, mighty, and occasionally dangerous.'}]
+    },{
+      id: 'jake',
+      name: 'Jake',
+      emoji: '🏃‍♂️',
+      shortDescription: 'The Athletic One',
+      description: 'Runs fast, climbs anything, jumps off balconies like it’s nothing. Jake’s motto: “If it looks unsafe, I’ll try it first.”',
+      startingInventory: [{name: 'Sweatband', description: 'does absolutely nothing, but he insists it’s lucky.'}]
+    },{
+      id: 'mia',
+      name: 'Mia',
+      emoji: '😎',
+      shortDescription: 'The Charmer',
+      description: 'She smiles, people talk. Neighbors trust her instantly… sometimes more than they should.',
+      startingInventory: [{name: 'Mint Drops', description: 'minty fresh diplomacy.'}]
+    }]
   }
 ];
+
