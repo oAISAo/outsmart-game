@@ -13,4 +13,4 @@
 - **Tooling**: run `npm run lint` (`@angular-eslint`) and `npm test` before opening PRs. Use `npm run format` to enforce Prettier (`printWidth: 100`, `singleQuote: true`).
 - **Dev Workflow**: `npm start` for the web client, `npm run sync` then `npm run ios|android` for native shells. Extend `/scripts` for complex build chains instead of adding new npm scripts.
 - **Version Control**: follow `WAY_OF_WORKING.md` (`feature/*` branches, scoped commits). Document feature-level decisions in `README.md` or a changelog entry.
-- **AI Collaboration**: annotate new feature intent with comments before generating logic, and consult `GPT_COPILOT_INSTRUCTIONS.md` for Ionic/Capacitor/RxJS nuances.
+- **AI Collaboration**: annotate new feature intent with comments before generating logic, and consult `COPILOT_INSTRUCTIONS.md` for Ionic/Capacitor/RxJS nuances.

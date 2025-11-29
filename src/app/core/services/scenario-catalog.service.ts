@@ -17,6 +17,14 @@ export class ScenarioCatalogService {
   });
   readonly scenarioCount = computed(() => this.scenariosSource().length);
 
+  getScenarioById(id: string): Scenario | undefined {
+    if (!id) {
+      return undefined;
+    }
+
+    return this.scenariosSource().find((scenario) => scenario.id === id);
+  }
+
   selectScenario(id: string): void {
     if (!id) {
       return;

@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Welcome</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="container">
+    <h1>
+      @switch (authMode()) {
+        @case ('signup') { Create Account }
+        @case ('login') { Welcome Back }
+      }
+    </h1>
+    <p>
+      @switch (authMode()) {
+        @case ('signup') { Sign up to save your progress. }
+        @case ('login') { Sign in to continue your game. }
+      }
+    </p>
+
+    <!-- Google Login -->
+    <ion-button expand="block" color="light" class="google-btn ion-margin-bottom" (click)="onGoogleLogin()" [disabled]="isLoading()">
+      <ion-icon slot="start" name="logo-google"></ion-icon>
+      Continue with Google
+    </ion-button>
+
+    <div class="divider">
+      <span>OR</span>
+    </div>
+
+    <!-- Email/Password Form -->
+    <form (submit)="onEmailSubmit(); $event.preventDefault()">
+      <ion-item class="ion-margin-bottom">
+        <ion-icon slot="start" name="mail-outline"></ion-icon>
+        <ion-input
+          label="Email"
+          labelPlacement="floating"
+          type="email"
+          [ngModel]="email()"
+          (ngModelChange)="email.set($event)"
+          name="email"
+          placeholder="Enter email"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+        <ion-input
+          label="Password"
+          labelPlacement="floating"
+          type="password"
+          [ngModel]="password()"
+          (ngModelChange)="password.set($event)"
+          name="password"
+          placeholder="Enter password"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" class="ion-margin-top" type="submit" [disabled]="isLoading()">
+        <span *ngIf="!isLoading()">
+          {{ authMode() === 'signup' ? 'Sign Up' : 'Sign In' }}
+        </span>
+        <ion-spinner *ngIf="isLoading()"></ion-spinner>
+      </ion-button>
+    </form>
+
+    <!-- Mode Toggles -->
+    <div class="footer-links ion-margin-top">
+      @if (authMode() === 'signup') {
+        <p>Already have an account? <a (click)="toggleMode('login')">Sign In</a></p>
+      }
+      @if (authMode() === 'login') {
+        <p>Don't have an account? <a (click)="toggleMode('signup')">Sign Up</a></p>
+      }
+    </div>
+  </div>
+</ion-content>
