@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
@@ -18,8 +18,6 @@ export class GameplayPage implements OnInit {
   private gameService = inject(GameService);
 
   protected game = this.gameService.currentGame;
-
-  constructor() { }
 
   ngOnInit() {
     const gameId = this.route.snapshot.paramMap.get('id');

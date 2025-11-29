@@ -29,7 +29,7 @@ export interface Game {
   scenarioId: string;
   status: 'lobby' | 'playing' | 'finished';
   players: GamePlayer[];
-  createdAt: any;
+  createdAt: unknown;
 }
 
 @Injectable({
@@ -42,8 +42,6 @@ export class GameService {
 
   // Current game state
   currentGame = signal<Game | null>(null);
-
-  constructor() {}
 
   /**
    * Creates a new game lobby

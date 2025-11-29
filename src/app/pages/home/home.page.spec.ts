@@ -1,8 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { signal } from '@angular/core';
 
 import { ScenarioCatalogService } from '../../core/services/scenario-catalog.service';
+import { GameService } from '../../core/services/game.service';
 import { HomePage } from './home.page';
 
 describe('HomePage', () => {
@@ -11,9 +13,17 @@ describe('HomePage', () => {
   let router: Router;
   let catalog: ScenarioCatalogService;
 
+  const gameServiceMock = {
+    currentGame: signal(null),
+    joinGame: jasmine.createSpy('joinGame').and.resolveTo('game-id')
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomePage, RouterTestingModule]
+      imports: [HomePage, RouterTestingModule],
+      providers: [
+        { provide: GameService, useValue: gameServiceMock }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomePage);

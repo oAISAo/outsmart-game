@@ -28,8 +28,6 @@ export class AuthService {
   // Computed signal for username
   username = computed(() => this.user()?.displayName);
 
-  constructor() {}
-
   async loginWithGoogle(): Promise<void> {
     try {
       const provider = new GoogleAuthProvider();

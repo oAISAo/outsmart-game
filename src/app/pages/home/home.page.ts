@@ -56,7 +56,7 @@ export class HomePage {
   protected readonly targetDuration = computed(
     () => this.selectedScenario()?.defaultDurationMinutes ?? 30
   );
-  
+
   // Join Game State
   protected joinCode = signal('');
   protected isJoining = signal(false);
@@ -79,13 +79,13 @@ export class HomePage {
       void this.navigateToScenario(scenario.id);
     }
   }
-  
+
   protected async onJoinGame(): Promise<void> {
     if (!this.joinCode() || this.joinCode().length !== 4) return;
-    
+
     this.isJoining.set(true);
     try {
-      const gameId = await this.gameService.joinGame(this.joinCode());
+      await this.gameService.joinGame(this.joinCode());
       // Hack for now: Wait for signal to populate
       setTimeout(() => {
         const game = this.gameService.currentGame();
@@ -93,7 +93,7 @@ export class HomePage {
           this.router.navigate(['/scenario', game.scenarioId]);
         }
       }, 500);
-      
+
     } catch (error) {
       console.error('Failed to join game', error);
       // Show toast
