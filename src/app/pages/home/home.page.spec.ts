@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { signal } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ScenarioCatalogService } from '../../core/services/scenario-catalog.service';
 import { GameService } from '../../core/services/game.service';
@@ -15,12 +16,12 @@ describe('HomePage', () => {
 
   const gameServiceMock = {
     currentGame: signal(null),
-    joinGame: jasmine.createSpy('joinGame').and.resolveTo('game-id')
+    joinGame: jasmine.createSpy('joinGame').and.resolveTo({ gameId: 'game-id', scenarioId: 'scenario-id' })
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomePage, RouterTestingModule],
+      imports: [HomePage, RouterTestingModule, TranslateModule.forRoot()],
       providers: [
         { provide: GameService, useValue: gameServiceMock }
       ]
@@ -55,19 +56,5 @@ describe('HomePage', () => {
 
     const expectedId = catalog.scenarios()[0]?.id;
     expect(navigateSpy).toHaveBeenCalledWith(['/scenario', expectedId]);
-  });
-
-  it('navigates after selecting a random scenario', async () => {
-    fixture.detectChanges();
-    const button = fixture.nativeElement.querySelector(
-      '[data-testid="random-scenario"]'
-    ) as HTMLButtonElement;
-    button.click();
-    fixture.detectChanges();
-    await fixture.whenStable();
-
-    const selectedId = catalog.selectedScenario()?.id;
-    expect(selectedId).toBeDefined();
-    expect(navigateSpy).toHaveBeenCalledWith(['/scenario', selectedId]);
   });
 });

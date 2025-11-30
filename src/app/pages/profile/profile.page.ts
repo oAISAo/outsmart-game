@@ -1,7 +1,9 @@
 import { Component, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
@@ -9,10 +11,10 @@ import { AuthService } from '../../core/services/auth.service';
   template: `
     <ion-header>
       <ion-toolbar>
-        <ion-title>Profile</ion-title>
+        <ion-title>{{ 'PROFILE.TITLE' | translate }}</ion-title>
         <ion-buttons slot="end">
           <ion-button (click)="logout()">
-            Logout
+            {{ 'PROFILE.LOGOUT' | translate }}
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -25,63 +27,64 @@ import { AuthService } from '../../core/services/auth.service';
         </div>
 
         <ion-list>
-          <ion-item>
+          <ion-item lines="none">
             <ion-input
-              label="Display Name"
+              [label]="'PROFILE.DISPLAY_NAME' | translate"
               labelPlacement="stacked"
               [ngModel]="username()"
               (ngModelChange)="username.set($event)"
-              placeholder="Enter your name"
-            ></ion-input>
-            <ion-button slot="end" fill="clear" (click)="updateName()" [disabled]="isLoading() || username() === currentName()">
-              Save
-            </ion-button>
+              [placeholder]="'PROFILE.ENTER_NAME' | translate"
+            >
+              <ion-button
+                slot="end"
+                fill="clear"
+                (click)="updateName()"
+                [disabled]="isLoading() || username() === currentName()"
+                class="save-btn"
+              >
+                {{ 'PROFILE.SAVE' | translate }}
+              </ion-button>
+            </ion-input>
           </ion-item>
 
-          <ion-item>
+          <ion-item lines="none">
             <ion-label>
-              <h3>Email</h3>
+              <h3>{{ 'PROFILE.EMAIL' | translate }}</h3>
               <p>{{ user()?.email }}</p>
             </ion-label>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-select
+              [label]="'PROFILE.LANGUAGE' | translate"
+              labelPlacement="stacked"
+              [value]="currentLang()"
+              (ionChange)="changeLanguage($event)"
+              interface="popover"
+            >
+              <ion-select-option value="en">English</ion-select-option>
+              <ion-select-option value="de">Deutsch</ion-select-option>
+              <ion-select-option value="sl">Slovenščina</ion-select-option>
+            </ion-select>
           </ion-item>
         </ion-list>
       </div>
     </ion-content>
   `,
-  styles: [`
-    .profile-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 2rem;
-    }
-    .avatar-placeholder {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      background: var(--ion-color-primary);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      font-weight: bold;
-      margin-bottom: 2rem;
-    }
-    ion-list {
-      width: 100%;
-    }
-  `],
+  styleUrl: './profile.page.scss',
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule]
+  imports: [CommonModule, FormsModule, IonicModule, TranslateModule]
 })
 export class ProfilePage {
   private authService = inject(AuthService);
+  private router = inject(Router);
+  private translate = inject(TranslateService);
 
   user = this.authService.user;
   username = signal('');
   currentName = signal('');
   isLoading = signal(false);
+  currentLang = signal(this.translate.currentLang || 'en');
 
   constructor() {
     effect(() => {
@@ -91,6 +94,12 @@ export class ProfilePage {
         this.currentName.set(u.displayName);
       }
     });
+  }
+
+  changeLanguage(event: CustomEvent) {
+    const lang = event.detail.value;
+    this.translate.use(lang);
+    this.currentLang.set(lang);
   }
 
   async updateName() {
@@ -108,5 +117,6 @@ export class ProfilePage {
 
   async logout() {
     await this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

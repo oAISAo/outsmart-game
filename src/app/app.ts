@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +10,13 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 })
 export class App {
   protected readonly appTitle = signal('Outsmart Game');
+  private translate = inject(TranslateService);
+
+  constructor() {
+    this.translate.addLangs(['en', 'sl', 'de']);
+    this.translate.setDefaultLang('en');
+
+    const browserLang = this.translate.getBrowserLang();
+    this.translate.use(browserLang?.match(/en|sl|de/) ? browserLang : 'en');
+  }
 }

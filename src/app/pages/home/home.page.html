@@ -1,50 +1,40 @@
 <ion-header translucent="true">
   <ion-toolbar>
-    <ion-title>Outsmart Missions</ion-title>
+    <ion-title>{{ 'HOME.TITLE' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="home-content">
   <section class="hero">
-    <h1>Co-operative narrative escape adventures</h1>
+    <h1>{{ 'HOME.HERO_TITLE' | translate }}</h1>
 
     <!-- Join Game Section -->
     <div class="join-game-card">
+      <h2>{{ 'HOME.JOIN_GAME' | translate }}</h2>
       <ion-item lines="none" class="join-input">
         <ion-input
-          placeholder="Enter 4-letter code"
+          [placeholder]="isInputFocused() ? '' : ('HOME.ENTER_CODE' | translate)"
+          (ionFocus)="isInputFocused.set(true)"
+          (ionBlur)="isInputFocused.set(false)"
           [ngModel]="joinCode()"
           (ngModelChange)="joinCode.set($event)"
           maxlength="4"
           class="code-input"
         ></ion-input>
         <ion-button slot="end" (click)="onJoinGame()" [disabled]="!joinCode() || isJoining()">
-          <span *ngIf="!isJoining()">Join</span>
+          <span *ngIf="!isJoining()">{{ 'HOME.JOIN_BUTTON' | translate }}</span>
           <ion-spinner *ngIf="isJoining()"></ion-spinner>
         </ion-button>
       </ion-item>
     </div>
 
     <p>
-      Pick a scenario, sync your crew on a call, and reach the objective before the timer runs out.
-      Every choice reshapes the story.
+      {{ 'HOME.HERO_SUBTITLE' | translate }}
     </p>
-    <div class="hero__actions">
-      <ion-button color="primary" (click)="onRandomScenario()" data-testid="random-scenario">
-        <ion-icon slot="start" name="sparkles-outline"></ion-icon>
-        Surprise scenario
-      </ion-button>
-      <ion-badge color="medium">
-        {{ scenarioCount() }} curated missions
-      </ion-badge>
-      <ion-badge color="tertiary">
-        Target session {{ targetDuration() }} min
-      </ion-badge>
-    </div>
   </section>
 
   <section class="scenarios" aria-label="Available scenarios">
-    <ion-list inset="true">
+    <ion-list lines="none" style="background: transparent;">
       @for (scenario of scenarios(); track scenario.id) {
         <ion-item
           button

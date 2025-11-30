@@ -2,12 +2,14 @@ import { Injectable, inject, computed } from '@angular/core';
 import {
   Auth,
   user,
+  User,
   updateProfile,
   GoogleAuthProvider,
   signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
 } from '@angular/fire/auth';
+import { Firestore, doc, setDoc, getDoc } from '@angular/fire/firestore';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
@@ -15,6 +17,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 })
 export class AuthService {
   private auth = inject(Auth);
+  private firestore = inject(Firestore);
 
   // Expose user as an observable
   user$ = user(this.auth);
@@ -31,7 +34,8 @@ export class AuthService {
   async loginWithGoogle(): Promise<void> {
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithPopup(this.auth, provider);
+      const result = await signInWithPopup(this.auth, provider);
+      await this.syncUserToFirestore(result.user);
     } catch (error) {
       console.error('Error logging in with Google:', error);
       throw error;
@@ -40,8 +44,8 @@ export class AuthService {
 
   async registerWithEmail(email: string, pass: string): Promise<void> {
     try {
-      await createUserWithEmailAndPassword(this.auth, email, pass);
-      // Name will be set in next step
+      const result = await createUserWithEmailAndPassword(this.auth, email, pass);
+      await this.syncUserToFirestore(result.user);
     } catch (error) {
       console.error('Error registering with email:', error);
       throw error;
@@ -50,7 +54,8 @@ export class AuthService {
 
   async loginWithEmail(email: string, pass: string): Promise<void> {
     try {
-      await signInWithEmailAndPassword(this.auth, email, pass);
+      const result = await signInWithEmailAndPassword(this.auth, email, pass);
+      await this.syncUserToFirestore(result.user);
     } catch (error) {
       console.error('Error logging in with email:', error);
       throw error;
@@ -63,9 +68,7 @@ export class AuthService {
       if (currentUser) {
         await updateProfile(currentUser, { displayName: username });
         await currentUser.reload();
-        // Force signal update by re-emitting user?
-        // The user$ observable should emit on reload/change, but sometimes it needs a nudge or we just wait.
-        // For now, the reload should trigger the auth state change eventually.
+        await this.syncUserToFirestore(currentUser);
       }
     } catch (error) {
       console.error('Error updating game name:', error);
@@ -75,5 +78,30 @@ export class AuthService {
 
   async logout(): Promise<void> {
     await this.auth.signOut();
+  }
+
+  private async syncUserToFirestore(user: User) {
+    if (!user) return;
+    const userDoc = doc(this.firestore, 'users', user.uid);
+
+    try {
+      const snapshot = await getDoc(userDoc);
+      const data = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        lastLogin: new Date()
+      };
+
+      if (!snapshot.exists()) {
+        await setDoc(userDoc, { ...data, createdAt: new Date() });
+      } else {
+        await setDoc(userDoc, data, { merge: true });
+      }
+    } catch (error) {
+      console.error('Error syncing user to Firestore:', error);
+      // Don't throw here to avoid blocking auth flow if DB is down/restricted
+    }
   }
 }

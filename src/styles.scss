@@ -12,20 +12,54 @@
 
 :root {
 	--ion-font-family: 'Inter', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	--ion-color-primary: #ff5e64;
+
+  /* Dark Mystery Theme Palette */
+  --outsmart-space-900: #0d0f16;
+  --outsmart-space-800: #141826;
+  --outsmart-space-700: #191e2d;
+
+  --outsmart-text-primary: rgba(255, 255, 255, 0.92);
+  --outsmart-text-secondary: rgba(255, 255, 255, 0.7);
+  --outsmart-text-muted: rgba(255, 255, 255, 0.5);
+
+  --outsmart-accent-primary: #ff5e64;
+  --outsmart-accent-secondary: #5a6cff;
+  --outsmart-accent-tertiary: #27b09d;
+
+  --outsmart-glass-surface: rgba(255, 255, 255, 0.05);
+  --outsmart-glass-border: rgba(255, 255, 255, 0.1);
+
+  /* Ionic Overrides for Dark Theme */
+	--ion-color-primary: var(--outsmart-accent-primary);
 	--ion-color-primary-contrast: #0f0f0f;
-	--ion-color-secondary: #8a82f4;
-	--ion-color-tertiary: #27b09d;
-	--outsmart-space-900: #0d0f16;
-	--outsmart-space-700: #191e2d;
-	--outsmart-text-primary: rgba(255, 255, 255, 0.88);
-	--outsmart-text-muted: rgba(255, 255, 255, 0.65);
-	--outsmart-glass-surface: rgba(255, 255, 255, 0.05);
+  --ion-color-secondary: var(--outsmart-accent-secondary);
+  --ion-color-tertiary: var(--outsmart-accent-tertiary);
+
+  --ion-color-success: var(--outsmart-accent-tertiary);
+  --ion-color-success-rgb: 39, 176, 157;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #229a8a;
+  --ion-color-success-tint: #3db8a7;
+
+  --ion-background-color: var(--outsmart-space-900);
+  --ion-background-color-rgb: 13, 15, 22;
+
+  --ion-text-color: var(--outsmart-text-primary);
+  --ion-text-color-rgb: 255, 255, 255;
+
+  --ion-item-background: transparent;
+  --ion-card-background: var(--outsmart-space-800);
+
+  /* Input Highlights */
+  --highlight-color-focused: var(--outsmart-accent-secondary);
+  --highlight-color-valid: var(--outsmart-accent-tertiary);
+  --highlight-color-invalid: var(--outsmart-accent-primary);
 }
 
 body {
-	background: var(--ion-color-step-50, #f7f8fb);
-	color: var(--ion-text-color, #1b1f23);
+	background: var(--ion-background-color);
+	color: var(--ion-text-color);
 }
 
 html,

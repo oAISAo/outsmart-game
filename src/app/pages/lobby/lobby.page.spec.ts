@@ -5,14 +5,14 @@ import { signal } from '@angular/core';
 import { ScenarioCatalogService } from '../../core/services/scenario-catalog.service';
 import { GameService } from '../../core/services/game.service';
 import { AuthService } from '../../core/services/auth.service';
-import { ScenarioIntroPage } from './scenario-intro.page';
+import { LobbyPage } from './lobby.page';
 
 class ActivatedRouteStub {
   snapshot = { paramMap: convertToParamMap({ id: '' }) };
 }
 
-describe('ScenarioIntroPage', () => {
-  let fixture: ComponentFixture<ScenarioIntroPage>;
+describe('LobbyPage', () => {
+  let fixture: ComponentFixture<LobbyPage>;
   let router: jasmine.SpyObj<Router>;
   let routeStub: ActivatedRouteStub;
   let catalog: ScenarioCatalogService;
@@ -34,7 +34,7 @@ describe('ScenarioIntroPage', () => {
     router.navigate.and.resolveTo(true);
 
     await TestBed.configureTestingModule({
-      imports: [ScenarioIntroPage],
+      imports: [LobbyPage],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: router },
@@ -46,9 +46,9 @@ describe('ScenarioIntroPage', () => {
     catalog = TestBed.inject(ScenarioCatalogService);
   });
 
-  function createComponentWithId(id: string): ComponentFixture<ScenarioIntroPage> {
+  function createComponentWithId(id: string): ComponentFixture<LobbyPage> {
     routeStub.snapshot.paramMap = convertToParamMap({ id });
-    fixture = TestBed.createComponent(ScenarioIntroPage);
+    fixture = TestBed.createComponent(LobbyPage);
     fixture.detectChanges();
     return fixture;
   }
