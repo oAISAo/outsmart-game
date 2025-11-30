@@ -11,7 +11,7 @@ export const routes: Routes = [
 	{
 		path: 'scenario/:id',
 		loadComponent: () =>
-			import('./pages/scenario-intro/scenario-intro.page').then((m) => m.ScenarioIntroPage),
+			import('./pages/lobby/lobby.page').then((m) => m.LobbyPage),
 		canActivate: [authGuard]
 	},
 	{

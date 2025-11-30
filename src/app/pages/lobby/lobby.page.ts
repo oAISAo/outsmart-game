@@ -32,7 +32,7 @@ import { GameService } from '../../core/services/game.service';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
-  selector: 'app-scenario-intro',
+  selector: 'app-lobby',
   standalone: true,
   imports: [
     CommonModule,
@@ -47,11 +47,11 @@ import { AuthService } from '../../core/services/auth.service';
     IonToolbar,
     IonSpinner
   ],
-  templateUrl: './scenario-intro.page.html',
-  styleUrl: './scenario-intro.page.scss',
+  templateUrl: './lobby.page.html',
+  styleUrl: './lobby.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ScenarioIntroPage implements AfterViewInit {
+export class LobbyPage implements AfterViewInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly catalog = inject(ScenarioCatalogService);
