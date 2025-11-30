@@ -96,7 +96,7 @@ export class ProfilePage {
     });
   }
 
-  changeLanguage(event: any) {
+  changeLanguage(event: CustomEvent) {
     const lang = event.detail.value;
     this.translate.use(lang);
     this.currentLang.set(lang);

@@ -2,6 +2,7 @@ import { Injectable, inject, computed } from '@angular/core';
 import {
   Auth,
   user,
+  User,
   updateProfile,
   GoogleAuthProvider,
   signInWithPopup,
@@ -79,7 +80,7 @@ export class AuthService {
     await this.auth.signOut();
   }
 
-  private async syncUserToFirestore(user: any) {
+  private async syncUserToFirestore(user: User) {
     if (!user) return;
     const userDoc = doc(this.firestore, 'users', user.uid);
 

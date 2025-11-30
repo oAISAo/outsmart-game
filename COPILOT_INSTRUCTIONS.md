@@ -42,6 +42,7 @@ We are building **Outsmart Game**, a high-quality, professional, cooperative nar
 2. **Plan**: Briefly describe the approach if the task is complex.
 3. **Implement**: Write clean, commented, and formatted code.
 4. **Verify**: Ensure the fix works and **add the required test case**.
+5. **Quality Check**: Run `npm run lint` and `npm test` after every feature implementation to ensure we haven't broken anything.
 
 ---
 *Remember: We are building a product for the public. Every line of code matters.*
