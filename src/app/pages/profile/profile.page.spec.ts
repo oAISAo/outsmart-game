@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { signal } from '@angular/core';
+import { signal, WritableSignal } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../core/services/auth.service';
 import { ProfilePage } from './profile.page';
@@ -9,7 +9,11 @@ import { ProfilePage } from './profile.page';
 describe('ProfilePage', () => {
   let fixture: ComponentFixture<ProfilePage>;
   let component: ProfilePage;
-  let authServiceMock: any;
+  let authServiceMock: {
+    user: WritableSignal<{ uid: string; email: string; displayName: string }>;
+    updateGameName: jasmine.Spy;
+    logout: jasmine.Spy;
+  };
 
   beforeEach(async () => {
     authServiceMock = {
