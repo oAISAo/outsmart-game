@@ -1,0 +1,22 @@
+{
+  "HOME": {
+    "TITLE": "Outsmart Missions",
+    "HERO_TITLE": "Co-operative narrative escape adventures",
+    "HERO_SUBTITLE": "Pick a scenario, sync your crew on a call, and reach the objective before the timer runs out. Every choice reshapes the story.",
+    "JOIN_GAME": "Join Game",
+    "ENTER_CODE": "Enter code",
+    "JOIN_BUTTON": "Join"
+  },
+  "PROFILE": {
+    "TITLE": "Profile",
+    "LOGOUT": "Logout",
+    "DISPLAY_NAME": "Display Name",
+    "ENTER_NAME": "Enter your name",
+    "SAVE": "Save",
+    "EMAIL": "Email",
+    "LANGUAGE": "Language"
+  },
+  "COMMON": {
+    "LOADING": "Loading..."
+  }
+}

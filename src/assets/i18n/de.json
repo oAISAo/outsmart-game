@@ -1,0 +1,22 @@
+{
+  "HOME": {
+    "TITLE": "Outsmart Missionen",
+    "HERO_TITLE": "Kooperative narrative Fluchtabenteuer",
+    "HERO_SUBTITLE": "Wähle ein Szenario, synchronisiere dein Team in einem Anruf und erreiche das Ziel, bevor die Zeit abläuft. Jede Entscheidung verändert die Geschichte.",
+    "JOIN_GAME": "Spiel beitreten",
+    "ENTER_CODE": "Code eingeben",
+    "JOIN_BUTTON": "Beitreten"
+  },
+  "PROFILE": {
+    "TITLE": "Profil",
+    "LOGOUT": "Abmelden",
+    "DISPLAY_NAME": "Anzeigename",
+    "ENTER_NAME": "Namen eingeben",
+    "SAVE": "Speichern",
+    "EMAIL": "E-Mail",
+    "LANGUAGE": "Sprache"
+  },
+  "COMMON": {
+    "LOADING": "Laden..."
+  }
+}

@@ -7,7 +7,6 @@ import {
   IonButton,
   IonContent,
   IonHeader,
-  IonIcon,
   IonItem,
   IonLabel,
   IonList,
@@ -21,6 +20,7 @@ import { sparklesOutline, enterOutline } from 'ionicons/icons';
 
 import { ScenarioCatalogService } from '../../core/services/scenario-catalog.service';
 import { GameService } from '../../core/services/game.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -28,11 +28,11 @@ import { GameService } from '../../core/services/game.service';
   imports: [
     CommonModule,
     FormsModule,
+    TranslateModule,
     IonBadge,
     IonButton,
     IonContent,
     IonHeader,
-    IonIcon,
     IonItem,
     IonLabel,
     IonList,
@@ -52,12 +52,9 @@ export class HomePage {
 
   protected readonly scenarios = this.catalog.scenarios;
   protected readonly selectedScenario = this.catalog.selectedScenario;
-  protected readonly scenarioCount = this.catalog.scenarioCount;
-  protected readonly targetDuration = computed(
-    () => this.selectedScenario()?.defaultDurationMinutes ?? 30
-  );
 
   // Join Game State
+  protected readonly isInputFocused = signal(false);
   protected joinCode = signal('');
   protected isJoining = signal(false);
 
@@ -71,29 +68,13 @@ export class HomePage {
     void this.navigateToScenario(id);
   }
 
-  protected onRandomScenario(): void {
-    this.clearFocus();
-    this.catalog.selectRandomScenario();
-    const scenario = this.catalog.selectedScenario();
-    if (scenario) {
-      void this.navigateToScenario(scenario.id);
-    }
-  }
-
   protected async onJoinGame(): Promise<void> {
     if (!this.joinCode() || this.joinCode().length !== 4) return;
 
     this.isJoining.set(true);
     try {
-      await this.gameService.joinGame(this.joinCode());
-      // Hack for now: Wait for signal to populate
-      setTimeout(() => {
-        const game = this.gameService.currentGame();
-        if (game) {
-          this.router.navigate(['/scenario', game.scenarioId]);
-        }
-      }, 500);
-
+      const { scenarioId } = await this.gameService.joinGame(this.joinCode());
+      await this.router.navigate(['/scenario', scenarioId]);
     } catch (error) {
       console.error('Failed to join game', error);
       // Show toast

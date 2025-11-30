@@ -1,11 +1,9 @@
 # FIX
 
 PROFILE:
-- logout doesn't work
 - delete profile or delete my data feature
 
 GENERAL:
-- translate to slovenian and german
 - continue game on app restart
 
 GAME:

@@ -74,7 +74,7 @@ export class GameService {
   /**
    * Joins an existing game by code
    */
-  async joinGame(code: string): Promise<string> {
+  async joinGame(code: string): Promise<{ gameId: string; scenarioId: string }> {
     const user = this.authService.user();
     if (!user) throw new Error('User must be logged in');
 
@@ -107,7 +107,7 @@ export class GameService {
     }
 
     this.subscribeToGame(gameDoc.id);
-    return gameDoc.id;
+    return { gameId: gameDoc.id, scenarioId: game.scenarioId };
   }
 
   /**

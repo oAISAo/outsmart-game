@@ -1,0 +1,22 @@
+{
+  "HOME": {
+    "TITLE": "Outsmart Misije",
+    "HERO_TITLE": "Sodelovalne pripovedne pustolovščine pobega",
+    "HERO_SUBTITLE": "Izberite scenarij, uskladite ekipo na klicu in dosezite cilj, preden se izteče čas. Vsaka izbira preoblikuje zgodbo.",
+    "JOIN_GAME": "Pridruži se igri",
+    "ENTER_CODE": "Vpiši kodo",
+    "JOIN_BUTTON": "Pridruži se"
+  },
+  "PROFILE": {
+    "TITLE": "Profil",
+    "LOGOUT": "Odjava",
+    "DISPLAY_NAME": "Prikazno ime",
+    "ENTER_NAME": "Vpiši svoje ime",
+    "SAVE": "Shrani",
+    "EMAIL": "E-pošta",
+    "LANGUAGE": "Jezik"
+  },
+  "COMMON": {
+    "LOADING": "Nalaganje..."
+  }
+}
